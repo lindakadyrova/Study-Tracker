@@ -1,6 +1,6 @@
 html, body {
   height: 100%;
-   margin: 0;
+  margin: 0;
   background-color: rgb(9, 2, 34);
   font-family: Arial, sans-serif;
   padding: 0;
@@ -14,14 +14,6 @@ body {
 
 main {
   flex: 1;
-}
-
-
-body {
-  margin: 0;
-  background-color: rgb(9, 2, 34);
-  font-family: Arial, sans-serif;
-  padding: 0;
 }
 
 /* Navigation */
@@ -43,7 +35,6 @@ nav {
   font-family: cursive;
 }
 
-/* Navigation Menu */
 .nav-menu {
   list-style: none;
   display: flex;
@@ -85,25 +76,35 @@ nav {
   color: aliceblue;
 }
 
+
 /* Footer */
 footer p {
-
   text-align: center;
   margin-top: 50px;
   color: #ffffff;
 }
 
-<<<<<<< HEAD
-/* Checklist */
+/* Boxes Layout */
 .Checklist {
-  margin: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+  margin: 100px auto;
+}
+
+
+.box {
   background-color: #008CFF;
   padding: 40px;
   border-radius: 10px;
-  position: relative;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
 }
 
-#taskList {
+#taskList,
+#fachListe {
   list-style-type: none;
   padding: 0;
 }
@@ -112,20 +113,20 @@ footer p {
   font-size: 30px;
 }
 
-#taskInput {
-  width: 30%;
+#taskInput,
+#fachInput {
+  width: 60%;
   padding: 12px 16px;
   font-size: 18px;
   border: 0 solid #ccc;
   border-radius: 8px;
   box-sizing: border-box;
+  margin-top: 10px;
 }
 
 /* Error Message Tooltip Style */
-#errorMsg {
-  position: absolute;
-  top: 145px;
-  left: 200px;
+#errorMsg,
+#subjectErrorMsg {
   background-color: #fff0f0;
   color: red;
   padding: 8px 12px;
@@ -133,20 +134,8 @@ footer p {
   border-radius: 5px;
   font-size: 14px;
   display: none;
-  z-index: 10;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  margin-top: 10px;
 }
-
-#errorMsg::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 20px;
-  border-width: 6px;
-  border-style: solid;
-  border-color: transparent transparent red transparent;
-}
-
 
 /* Buttons */
 button {
@@ -156,69 +145,10 @@ button {
   color: #007BFF;
   border: none;
   border-radius: 8px;
-=======
-.section-content {
-  padding: 40px;
-  color: white;
-  font-family: sans-serif;
-}
-
-h1, h3 {
-  color: white;
-}
-
-input[type="text"] {
-  padding: 10px;
-  font-size: 16px;
-  margin-right: 10px;
-  border-radius: 5px;
-  border: none;
-}
-
-button {
-  padding: 10px 15px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  background-color: #008CFF;
-  color: white;
->>>>>>> 5642b369fc6aa5be01516e82b171ac43ad7d8140
   cursor: pointer;
+  margin-top: 10px;
 }
 
 button:hover {
-<<<<<<< HEAD
   background-color: #d7d9dc;
 }
-
-=======
-  background-color: #0070cc;
-}
-
-ul#fachListe li {
-  background-color: rgba(255, 255, 255, 0.05);
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: white;
-}
-
-/* Fortschrittsbalken als div selbst gestalten */
-.fortschritt-container {
-  width: 100px;
-  height: 10px;
-  background-color: #333;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.fortschritt-balken {
-  height: 100%;
-  background-color: #00cc99;
-  width: 0%;
-  transition: width 0.3s ease;
-}
->>>>>>> 5642b369fc6aa5be01516e82b171ac43ad7d8140

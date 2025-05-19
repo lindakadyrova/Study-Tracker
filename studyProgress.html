@@ -4,14 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>To-Do-List</title>
+  <title>Study Tracker</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
   <header>
     <a href="index.html" class="nav-logo"></a>
-
     <nav>
       <div class="nav-container">
         <div class="Logo">
@@ -19,27 +18,118 @@
         </div>
         <ul class="nav-menu">
           <li><a href="index.html">Home</a></li>
-          <li><a href="subjects.html">Subjects</a></li>
-          <li><a href="to-Do-List.html">To-Do-List</a></li>
-          <li><a href="timer.html">Timer</a></li>
+          <li><a href="studyProgress.html">Study Progress</a></li>
         </ul>
       </div>
     </nav>
   </header>
-<main>
-  <div class="Checklist">
-    <h2>Tasks</h2>
-    <input type="text" id="taskInput" placeholder="Add new Task..." onkeydown="handleKey(event)" />
-    <button onclick="addTask()">Add</button>
-    <p id="errorMsg" style="color: red; display: none;">Please enter a task</p>
-    <ul id="taskList"></ul>
-  </div>
-</main>
+
+  <main>
+    <div class="Checklist">
+
+      <!-- Subject Tracker Box -->
+      <section class="subjects-section box">
+        <h1>Track Your Subjects</h1>
+        <h3>Enter your subjects and track your progress</h3>
+
+        <input type="text" id="fachInput" placeholder="Enter Subject">
+        <button onclick="addSubject()">Add</button>
+        <p id="subjectErrorMsg" style="color: red; display: none;">Please enter a subject</p>
+
+        <ul id="fachListe" style="list-style: none; padding-left: 0;"></ul>
+      </section>
+
+      <!-- Task List Box -->
+      <section class="tasks-section box">
+        <h2>Tasks</h2>
+        <input type="text" id="taskInput" placeholder="Add new Task..." onkeydown="handleKey(event)" />
+        <button onclick="addTask()">Add</button>
+        <p id="errorMsg">Please enter a task</p>
+        <ul id="taskList"></ul>
+      </section>
+
+    </div>
+  </main>
+
   <footer>
-    <p>&copy; 2025 Study Tracker | Created by Linda & Marcha</p>
+    <p>&copy; 2025 Study Tracker | Created by Linda Kadyrova and Marcha Tuzaeva</p>
   </footer>
 
   <script>
+    // SUBJECT TRACKER FUNCTION
+    function addSubject() {
+      const input = document.getElementById("fachInput");
+      const fachName = input.value.trim();
+      const errorMsg = document.getElementById("subjectErrorMsg");
+
+      if (fachName === "") {
+        errorMsg.style.display = "block";
+        setTimeout(() => errorMsg.style.display = "none", 3000);
+        return;
+      }
+
+      const li = document.createElement("li");
+      li.style.marginBottom = "10px";
+
+      const title = document.createElement("strong");
+      title.textContent = fachName;
+      li.appendChild(title);
+      li.appendChild(document.createElement("br"));
+
+
+      let fortschritt = 0;
+
+      const bar = document.createElement("progress");
+      bar.value = fortschritt;
+      bar.max = 100;
+      bar.style.width = "200px";
+      bar.style.marginRight = "10px";
+      li.appendChild(bar);
+
+      const percent = document.createElement("span");
+      percent.textContent = fortschritt + "%";
+      li.appendChild(percent);
+
+      const btnPlus = document.createElement("button");
+      btnPlus.textContent = "+";
+      btnPlus.style.marginLeft = "10px";
+      btnPlus.onclick = () => {
+        if (fortschritt < 100) {
+          fortschritt += 20;
+          if (fortschritt > 100) fortschritt = 100;
+          bar.value = fortschritt;
+          percent.textContent = fortschritt + "%";
+        }
+      };
+      li.appendChild(btnPlus);
+
+      // NEU: Minus-Button hinzufügen
+      const btnMinus = document.createElement("button");
+      btnMinus.textContent = "-";
+      btnMinus.style.marginLeft = "10px";
+      btnMinus.onclick = () => {
+        if (fortschritt > 0) {
+          fortschritt -= 20;
+          if (fortschritt < 0) fortschritt = 0;
+          bar.value = fortschritt;
+          percent.textContent = fortschritt + "%";
+        }
+      };
+      li.appendChild(btnMinus);
+
+      const del = document.createElement("button");
+      del.textContent = "❌";
+      del.style.marginLeft = "10px";
+      del.onclick = () => li.remove();
+  
+      li.appendChild(del);
+
+
+      document.getElementById("fachListe").appendChild(li);
+      input.value = "";
+    }
+
+    // TO-DO LIST FUNCTIONALITY
     document.addEventListener("DOMContentLoaded", loadTasks);
 
     function handleKey(event) {
@@ -146,9 +236,8 @@
         errorMsg.style.display = "none";
       }, 3000);
     }
-  </script>
 
-  <script>
+    // ACTIVE NAV LINK HIGHLIGHT
     const currentPage = window.location.pathname.split("/").pop();
     document.querySelectorAll(".nav-menu a").forEach(link => {
       if (link.getAttribute("href") === currentPage || (currentPage === "" && link.getAttribute("href") === "index.html")) {
