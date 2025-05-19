@@ -29,35 +29,63 @@
       <h1>Track Your Subjects</h1>
 
       <section>
-        <h3>See the percentage of your progress</h3>
+        <h3>Enter your subjects and track your progress</h3>
       </section>
 
-     <input type="text" id="fachInput" placeholder="Fach eingeben">
-  <button onclick="fachHinzufügen()">Hinzufügen</button>
+    <input type="text" id="fachInput" placeholder="Enter Subject">
+    <button onclick="addSubject()">Add</button>
 
   <!-- Liste -->
   <ul id="fachListe"></ul>
 
   <script>
-    function fachHinzufügen() {
-      // 1. Hol den Text aus dem Eingabefeld
-      const input = document.getElementById("fachInput");
-      const fachName = input.value;
+  function addSubject() {
+    const input = document.getElementById("fachInput");
+    const fachName = input.value;
 
-      // 2. Wenn das Feld leer ist, tue nichts
-      if (fachName.trim() === "") return;
+    if (fachName.trim() === "") return;
 
-      // 3. Neues Listenelement erstellen
-      const li = document.createElement("li");
-      li.textContent = fachName;
+    const li = document.createElement("li");
 
-      // 4. Zur Liste hinzufügen
-      document.getElementById("fachListe").appendChild(li);
+    // Fachname
+    const title = document.createElement("span");
+    title.textContent = fachName + " ";
+    li.appendChild(title);
 
-      // 5. Eingabefeld leeren
-      input.value = "";
-    }
-  </script>
+    // Fortschritt
+    let fortschritt = 0;
+
+    const bar = document.createElement("progress");
+    bar.value = fortschritt;
+    bar.max = 100;
+    li.appendChild(bar);
+
+    const percent = document.createElement("span");
+    percent.textContent = fortschritt + "%";
+    li.appendChild(percent);
+
+    // Fortschritt erhöhen
+    const btn = document.createElement("button");
+    btn.textContent = "+";
+    btn.onclick = () => {
+      if (fortschritt < 100) {
+        fortschritt += 20;
+        bar.value = fortschritt;
+        percent.textContent = fortschritt + "%";
+      }
+    };
+    li.appendChild(btn);
+
+    // Löschen
+    const del = document.createElement("button");
+    del.textContent = "❌";
+    del.onclick = () => li.remove();
+    li.appendChild(del);
+
+    document.getElementById("fachListe").appendChild(li);
+    input.value = "";
+  }
+</script>
 
   <footer>
     <p>&copy; 2025 Study Tracker | Created by Linda Kadyrova and Marcha Tuzaeva</p>
