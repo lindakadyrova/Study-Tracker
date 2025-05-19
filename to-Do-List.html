@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-Do-List</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header>
+    <a href="index.html" class="nav-logo"></a>
+
+    <nav>
+      <div class="nav-container">
+        <div class="Logo">
+          <a href="index.html">Study Tracker</a>
+        </div>
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="subjects.html">Subjects</a></li>
+          <li><a href="to-Do-List.html">To-Do-List</a></li>
+          <li><a href="timer.html">Timer</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+<main>
+  <div class="Checklist">
+    <h2>Tasks</h2>
+    <input type="text" id="taskInput" placeholder="Add new Task..." onkeydown="handleKey(event)" />
+    <button onclick="addTask()">Add</button>
+    <p id="errorMsg" style="color: red; display: none;">Please enter a task</p>
+    <ul id="taskList"></ul>
+  </div>
+</main>
+  <footer>
+    <p>&copy; 2025 Study Tracker | Created by Linda & Marcha</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", loadTasks);
+
+    function handleKey(event) {
+      if (event.key === "Enter") {
+        addTask();
+      }
+    }
+
+    function addTask() {
+      const input = document.getElementById("taskInput");
+      const taskText = input.value.trim();
+
+      if (taskText === "") {
+        showError("Please enter a task!");
+        return;
+      }
+
+      const task = {
+        text: taskText,
+        completed: false
+      };
+
+      saveTask(task);
+      renderTask(task);
+      input.value = "";
+    }
+
+    function renderTask(task) {
+      const li = document.createElement("li");
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = task.completed;
+
+      const taskSpan = document.createElement("span");
+      taskSpan.textContent = task.text;
+
+      if (task.completed) {
+        taskSpan.style.textDecoration = "line-through";
+        taskSpan.style.color = "gray";
+      }
+
+      checkbox.onchange = function () {
+        task.completed = this.checked;
+        taskSpan.style.textDecoration = this.checked ? "line-through" : "none";
+        taskSpan.style.color = this.checked ? "gray" : "black";
+        updateStorage();
+      };
+
+      const delBtn = document.createElement('button');
+      delBtn.textContent = '✖';
+      delBtn.style.marginLeft = '5px';
+      delBtn.style.color = 'red';
+      delBtn.style.cursor = 'pointer';
+      delBtn.style.backgroundColor = 'transparent';
+      delBtn.style.border = 'none';
+      delBtn.style.fontSize = '16px';
+
+      delBtn.onclick = () => {
+        li.remove();
+        updateStorage();
+      };
+
+      li.appendChild(checkbox);
+      li.appendChild(taskSpan);
+      li.appendChild(delBtn);
+
+      document.getElementById("taskList").appendChild(li);
+    }
+
+    function saveTask(task) {
+      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      tasks.push(task);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function updateStorage() {
+      const listItems = document.querySelectorAll("#taskList li");
+      const tasks = [];
+
+      listItems.forEach(li => {
+        const checkbox = li.querySelector("input[type='checkbox']");
+        const span = li.querySelector("span");
+        tasks.push({
+          text: span.textContent,
+          completed: checkbox.checked
+        });
+      });
+
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function loadTasks() {
+      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      tasks.forEach(task => renderTask(task));
+    }
+
+    function showError(message) {
+      const errorMsg = document.getElementById("errorMsg");
+      errorMsg.textContent = message;
+      errorMsg.style.display = "block";
+
+      setTimeout(() => {
+        errorMsg.style.display = "none";
+      }, 3000);
+    }
+  </script>
+
+  <script>
+    const currentPage = window.location.pathname.split("/").pop();
+    document.querySelectorAll(".nav-menu a").forEach(link => {
+      if (link.getAttribute("href") === currentPage || (currentPage === "" && link.getAttribute("href") === "index.html")) {
+        link.classList.add("active");
+      }
+    });
+  </script>
+</body>
+
+</html>

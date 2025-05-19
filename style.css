@@ -1,11 +1,31 @@
+html, body {
+  height: 100%;
+   margin: 0;
+  background-color: rgb(9, 2, 34);
+  font-family: Arial, sans-serif;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+
 body {
   margin: 0;
   background-color: rgb(9, 2, 34);
+  font-family: Arial, sans-serif;
+  padding: 0;
 }
 
 /* Navigation */
 nav {
-  background-color: none;
   padding: 10px 20px;
 }
 
@@ -37,27 +57,108 @@ nav {
   transition: color 0.3s;
 }
 
-.nav-menu>li>a:hover {
-  color: #008CFF ;
+.nav-menu > li > a:hover {
+  color: #008CFF;
 }
 
+.nav-menu a.active {
+  font-weight: bold;
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+}
+
+/* Homepage Image */
 #homepageimg {
   margin-top: 100px;
   display: flex;
 }
+
 #homepageimg img {
-  width: 40%;
-height: auto;
+  width: 35%;
+  height: auto;
 }
+
 #homepageimg p {
   margin-top: 15%;
   margin-left: 100px;
-font-size: 900%;
-color: aliceblue;}
+  font-size: 100px;
+  color: aliceblue;
+}
 
-
+/* Footer */
 footer p {
-text-align: center;
+
+  text-align: center;
   margin-top: 50px;
   color: #ffffff;
 }
+
+/* Checklist */
+.Checklist {
+  margin: 200px;
+  background-color: #008CFF;
+  padding: 40px;
+  border-radius: 10px;
+  position: relative;
+}
+
+#taskList {
+  list-style-type: none;
+  padding: 0;
+}
+
+#taskList span {
+  font-size: 30px;
+}
+
+#taskInput {
+  width: 30%;
+  padding: 12px 16px;
+  font-size: 18px;
+  border: 0 solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* Error Message Tooltip Style */
+#errorMsg {
+  position: absolute;
+  top: 145px;
+  left: 200px;
+  background-color: #fff0f0;
+  color: red;
+  padding: 8px 12px;
+  border: 1px solid red;
+  border-radius: 5px;
+  font-size: 14px;
+  display: none;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+#errorMsg::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent red transparent;
+}
+
+
+/* Buttons */
+button {
+  padding: 12px 16px;
+  font-size: 16px;
+  background-color: white;
+  color: #007BFF;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #d7d9dc;
+}
+
