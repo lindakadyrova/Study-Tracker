@@ -52,11 +52,12 @@ height: auto;
 #homepageimg p {
   margin-top: 15%;
   margin-left: 100px;
-font-size: 100px;
+font-size: 900%;
 color: aliceblue;}
 
 
 footer p {
+text-align: center;
   margin-top: 50px;
   color: #ffffff;
 }
