@@ -60,25 +60,32 @@ nav {
   border-bottom: 2px solid #007bff;
   background-color: rgba(255, 255, 255, 0.1);
 }
+
 /* Homepage Image */
 #homepageimg {
   margin-top: 100px;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
 #homepageimg img {
-  max-width: auto;
-  height: 500px;
+  width: 300px; /* Verkleinert */
+  height: auto;
   display: block;
-  margin: 0 auto;
 }
 
 #homepageimg p {
-  margin-top: 15%;
-  margin-left: 100px;
-  font-size: 100px;
+  font-size: 32px; /* Deutlich kleiner */
   color: aliceblue;
+  margin: 0;
+  max-width: 300px;
+  text-align: center;
 }
+
+
 /* Boxes Layout */
 .Checklist {
   display: flex;
