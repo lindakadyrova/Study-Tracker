@@ -67,8 +67,10 @@ nav {
 }
 
 #homepageimg img {
-  width: 35%;
+  max-width: 30%;
   height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 #homepageimg p {
