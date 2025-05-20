@@ -26,28 +26,24 @@
 
   <main>
     <div class="Checklist">
-
-      <!-- Subject Tracker Box -->
+      <!-- Subject Tracker -->
       <section class="subjects-section box">
         <h1>Track Your Subjects</h1>
         <h3>Enter your subjects and track your progress</h3>
-
-        <input type="text" id="fachInput" placeholder="Enter Subject">
-        <button onclick="addSubject()">Add</button>
-        <p id="subjectErrorMsg" style="color: red; display: none;">Please enter a subject</p>
-
-        <ul id="fachListe" style="list-style: none; padding-left: 0;"></ul>
+        <input type="text" id="fachInput" placeholder="Enter Subject" disabled>
+        <button disabled>Add</button>
+        <p id="subjectErrorMsg">(Subject tracking requires JavaScript)</p>
+        <ul id="fachListe"></ul>
       </section>
 
-      <!-- Task List Box -->
+      <!-- Task List -->
       <section class="tasks-section box">
         <h2>Tasks</h2>
-        <input type="text" id="taskInput" placeholder="Add new Task..." onkeydown="handleKey(event)" />
-        <button onclick="addTask()">Add</button>
-        <p id="errorMsg">Please enter a task</p>
+        <input type="text" id="taskInput" placeholder="Add new Task..." disabled />
+        <button disabled>Add</button>
+        <p id="errorMsg">(Task management requires JavaScript)</p>
         <ul id="taskList"></ul>
       </section>
-
     </div>
   </main>
 
@@ -55,189 +51,8 @@
     <p>&copy; 2025 Study Tracker | Created by Linda Kadyrova and Marcha Tuzaeva</p>
   </footer>
 
+  <script src="script.js"></script>
   <script>
-    // SUBJECT TRACKER FUNCTION
-    function addSubject() {
-      const input = document.getElementById("fachInput");
-      const fachName = input.value.trim();
-      const errorMsg = document.getElementById("subjectErrorMsg");
-
-      if (fachName === "") {
-        errorMsg.style.display = "block";
-        setTimeout(() => errorMsg.style.display = "none", 3000);
-        return;
-      }
-
-      const li = document.createElement("li");
-      li.style.marginBottom = "10px";
-
-      const title = document.createElement("strong");
-      title.textContent = fachName;
-      li.appendChild(title);
-      li.appendChild(document.createElement("br"));
-
-
-      let fortschritt = 0;
-
-      const bar = document.createElement("progress");
-      bar.value = fortschritt;
-      bar.max = 100;
-      bar.style.width = "200px";
-      bar.style.marginRight = "10px";
-      li.appendChild(bar);
-
-      const percent = document.createElement("span");
-      percent.textContent = fortschritt + "%";
-      li.appendChild(percent);
-
-      const btnPlus = document.createElement("button");
-      btnPlus.textContent = "+";
-      btnPlus.style.marginLeft = "10px";
-      btnPlus.onclick = () => {
-        if (fortschritt < 100) {
-          fortschritt += 20;
-          if (fortschritt > 100) fortschritt = 100;
-          bar.value = fortschritt;
-          percent.textContent = fortschritt + "%";
-        }
-      };
-      li.appendChild(btnPlus);
-
-      // NEU: Minus-Button hinzufügen
-      const btnMinus = document.createElement("button");
-      btnMinus.textContent = "-";
-      btnMinus.style.marginLeft = "10px";
-      btnMinus.onclick = () => {
-        if (fortschritt > 0) {
-          fortschritt -= 20;
-          if (fortschritt < 0) fortschritt = 0;
-          bar.value = fortschritt;
-          percent.textContent = fortschritt + "%";
-        }
-      };
-      li.appendChild(btnMinus);
-
-      const del = document.createElement("button");
-      del.textContent = "❌";
-      del.style.marginLeft = "10px";
-      del.onclick = () => li.remove();
-  
-      li.appendChild(del);
-
-
-      document.getElementById("fachListe").appendChild(li);
-      input.value = "";
-    }
-
-    // TO-DO LIST FUNCTIONALITY
-    document.addEventListener("DOMContentLoaded", loadTasks);
-
-    function handleKey(event) {
-      if (event.key === "Enter") {
-        addTask();
-      }
-    }
-
-    function addTask() {
-      const input = document.getElementById("taskInput");
-      const taskText = input.value.trim();
-
-      if (taskText === "") {
-        showError("Please enter a task!");
-        return;
-      }
-
-      const task = {
-        text: taskText,
-        completed: false
-      };
-
-      saveTask(task);
-      renderTask(task);
-      input.value = "";
-    }
-
-    function renderTask(task) {
-      const li = document.createElement("li");
-
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.checked = task.completed;
-
-      const taskSpan = document.createElement("span");
-      taskSpan.textContent = task.text;
-
-      if (task.completed) {
-        taskSpan.style.textDecoration = "line-through";
-        taskSpan.style.color = "gray";
-      }
-
-      checkbox.onchange = function () {
-        task.completed = this.checked;
-        taskSpan.style.textDecoration = this.checked ? "line-through" : "none";
-        taskSpan.style.color = this.checked ? "gray" : "black";
-        updateStorage();
-      };
-
-      const delBtn = document.createElement('button');
-      delBtn.textContent = '✖';
-      delBtn.style.marginLeft = '5px';
-      delBtn.style.color = 'red';
-      delBtn.style.cursor = 'pointer';
-      delBtn.style.backgroundColor = 'transparent';
-      delBtn.style.border = 'none';
-      delBtn.style.fontSize = '16px';
-
-      delBtn.onclick = () => {
-        li.remove();
-        updateStorage();
-      };
-
-      li.appendChild(checkbox);
-      li.appendChild(taskSpan);
-      li.appendChild(delBtn);
-
-      document.getElementById("taskList").appendChild(li);
-    }
-
-    function saveTask(task) {
-      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-      tasks.push(task);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-    }
-
-    function updateStorage() {
-      const listItems = document.querySelectorAll("#taskList li");
-      const tasks = [];
-
-      listItems.forEach(li => {
-        const checkbox = li.querySelector("input[type='checkbox']");
-        const span = li.querySelector("span");
-        tasks.push({
-          text: span.textContent,
-          completed: checkbox.checked
-        });
-      });
-
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-    }
-
-    function loadTasks() {
-      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-      tasks.forEach(task => renderTask(task));
-    }
-
-    function showError(message) {
-      const errorMsg = document.getElementById("errorMsg");
-      errorMsg.textContent = message;
-      errorMsg.style.display = "block";
-
-      setTimeout(() => {
-        errorMsg.style.display = "none";
-      }, 3000);
-    }
-
-    // ACTIVE NAV LINK HIGHLIGHT
     const currentPage = window.location.pathname.split("/").pop();
     document.querySelectorAll(".nav-menu a").forEach(link => {
       if (link.getAttribute("href") === currentPage || (currentPage === "" && link.getAttribute("href") === "index.html")) {

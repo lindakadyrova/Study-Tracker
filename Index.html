@@ -7,41 +7,37 @@
   <title>Homepage</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<header>
-  <a href="index.html" class="nav-logo">
-  </a>
-
-  <!--Navigator-->
-  <nav>
-    <div class="nav-container">
-      <div class="Logo">
-        <a href="index.html">Study Tracker</a>
-
-      </div>
-
-      <ul class="nav-menu">
-        <li><a href="index.html">Home</a></li>
-          <li><a href="studyProgress.html">Study Progress</a></li>
-      </ul>
-    </div>
-  </nav>
-</header>
 
 <body>
+  <header>
+    <a href="index.html" class="nav-logo"></a>
+
+    <nav>
+      <div class="nav-container">
+        <div class="Logo">
+          <a href="index.html">Study Tracker</a>
+        </div>
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="studyProgress.html">Study Progress</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
   <div id="homepageimg">
     <img src="Home.png" alt="Homepage Image">
     <p>Keep track of your path to success</p>
   </div>
 
+  </main>
   <footer>
     <p>&copy; 2025 Study Tracker | Created by Linda Kadyrova and Marcha Tuzaeva</p>
   </footer>
 
   <script>
-    // Aktuellen Dateinamen holen
     const currentPage = window.location.pathname.split("/").pop();
-
-    // Alle Links in der Navigation durchgehen
     document.querySelectorAll(".nav-menu a").forEach(link => {
       if (link.getAttribute("href") === currentPage || (currentPage === "" && link.getAttribute("href") === "index.html")) {
         link.classList.add("active");

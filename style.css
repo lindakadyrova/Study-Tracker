@@ -42,10 +42,12 @@ nav {
 }
 
 .nav-menu li a {
-  color: rgb(255, 255, 254);
+  color: white;
   text-decoration: none;
   font-size: 20px;
-  transition: color 0.3s;
+  transition: color 0.3s, background-color 0.3s;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
 .nav-menu > li > a:hover {
@@ -56,8 +58,8 @@ nav {
   font-weight: bold;
   color: #007bff;
   border-bottom: 2px solid #007bff;
+  background-color: rgba(255, 255, 255, 0.1);
 }
-
 /* Homepage Image */
 #homepageimg {
   margin-top: 100px;
@@ -75,15 +77,6 @@ nav {
   font-size: 100px;
   color: aliceblue;
 }
-
-
-/* Footer */
-footer p {
-  text-align: center;
-  margin-top: 50px;
-  color: #ffffff;
-}
-
 /* Boxes Layout */
 .Checklist {
   display: flex;
@@ -93,13 +86,12 @@ footer p {
   margin: 100px auto;
 }
 
-
 .box {
   background-color: #008CFF;
-  padding: 40px;
+  padding: 60px;
   border-radius: 10px;
-  width: 80%;
-  max-width: 700px;
+  width: 90%;
+  max-width: 1000px;
   text-align: center;
 }
 
@@ -107,10 +99,6 @@ footer p {
 #fachListe {
   list-style-type: none;
   padding: 0;
-}
-
-#taskList span {
-  font-size: 30px;
 }
 
 #taskInput,
@@ -124,7 +112,6 @@ footer p {
   margin-top: 10px;
 }
 
-/* Error Message Tooltip Style */
 #errorMsg,
 #subjectErrorMsg {
   background-color: #fff0f0;
@@ -151,4 +138,26 @@ button {
 
 button:hover {
   background-color: #d7d9dc;
+}
+
+/* Kleine runde Icon-Buttons für + - ❌ */
+.small-btn {
+  font-size: 14px;
+  background: none;
+  border: none;
+  color: rgb(0, 0, 0);
+  margin-left: 10px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.small-btn:hover {
+  color: darkred;
+}
+
+/* Footer */
+footer p {
+  text-align: center;
+  margin-top: 50px;
+  color: #ffffff;
 }
